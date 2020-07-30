@@ -25,11 +25,6 @@ const server = app.listen(port, () => {
   console.log("Connected to port " + port);
 });
 
-// Find 404 and hand over to error handler
-app.use((req, res, next) => {
-  next(createError(404));
-});
-
 // error handler
 app.use(function (err, req, res, next) {
   console.error(err.message); // Log error message in our server's console

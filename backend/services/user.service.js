@@ -26,9 +26,27 @@ const getUsers = async () => {
   }
 };
 
+const getUser = async (id) => {
+  try {
+    const user = await User.findOne({ _id: id });
+    return user;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const deleteUser = async (id) => {
   try {
-    await User.findOneAndDelete(id);
+    await User.findByIdAndDelete(id);
+  } catch (err) {
+    throw err;
+  }
+};
+
+const updateUser = async (id, data) => {
+  try {
+    const user = await User.findByIdAndUpdate(id, { $set: data });
+    return user;
   } catch (err) {
     throw err;
   }
@@ -37,5 +55,7 @@ const deleteUser = async (id) => {
 module.exports = {
   createUser,
   getUsers,
+  getUser,
   deleteUser,
+  updateUser,
 };
