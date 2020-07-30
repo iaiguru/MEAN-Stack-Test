@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+html {
+  font-size: 14px;
+  overflow-x: hidden;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.invalid-feedback {
+  display: block;
+}
