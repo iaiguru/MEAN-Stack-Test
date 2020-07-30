@@ -1,1 +1,87 @@
-<p>user-edit works!</p>
+<div class="row justify-content-center">
+  <div class="col-md-4 register-user">
+    <!-- form  card edit -->
+    <div class="card card-outline-secondary">
+      <div class="card-header">
+        <h3 class="mb-0">Edit User</h3>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="inputName">First Name</label>
+            <input
+              class="form-control"
+              type="text"
+              formControlName="firstName"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="submitted && myForm.firstName.errors?.required"
+            >
+              First Name is required.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputName">Last Name</label>
+            <input
+              class="form-control"
+              type="text"
+              formControlName="lastName"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="submitted && myForm.lastName.errors?.required"
+            >
+              Last Name is required.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail">Email</label>
+            <input class="form-control" type="text" formControlName="email" />
+            <!-- error -->
+            <div
+              class="invalid-feedback"
+              *ngIf="submitted && myForm.email.errors?.required"
+            >
+              Enter your email.
+            </div>
+            <div
+              class="invalid-feedback"
+              *ngIf="submitted && myForm.email.errors?.pattern"
+            >
+              Enter valid email.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputRole">Role</label>
+            <select
+              class="custom-select form-control"
+              (change)="updateRole($event.target.value)"
+              formControlName="role"
+            >
+              <option value="">Choose...</option>
+              <option *ngFor="let role of roles" value="{{ role }}"
+                >{{ role }}
+              </option>
+            </select>
+            <!-- error -->
+            <div
+              class="invalid-feedback"
+              *ngIf="submitted && myForm.role.errors?.required"
+            >
+              Choose role.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-success btn-lg btn-block" type="submit">
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- form  -->
+  </div>
+</div>

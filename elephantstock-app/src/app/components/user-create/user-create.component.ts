@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class UserCreateComponent implements OnInit {
   submitted = false;
   userForm: FormGroup;
-  userRoles: any = ['Artist', 'Designer', 'Art manager'];
+  userRoles: any = [];
 
   constructor(
     private fb: FormBuilder,
@@ -23,6 +23,7 @@ export class UserCreateComponent implements OnInit {
     private toast: ToastrService
   ) {
     this.mainForm();
+    this.getRoles();
   }
 
   ngOnInit(): void {}
@@ -50,6 +51,12 @@ export class UserCreateComponent implements OnInit {
     return this.userForm.controls;
   }
 
+  getRoles() {
+    this.apiService.getRoles(null).subscribe((data) => {
+      this.userRoles = data.roles;
+    });
+  }
+
   onSubmit() {
     this.submitted = true;
     if (!this.userForm.valid) {
@@ -60,8 +67,7 @@ export class UserCreateComponent implements OnInit {
       this.apiService.createUser(this.userForm.value).subscribe(
         (res) => {
           this.spinner.hide();
-          console.log('Employee successfully created!');
-          this.ngZone.run(() => this.router.navigateByUrl('/users-list'));
+          this.ngZone.run(() => this.router.navigateByUrl('/user-list'));
         },
         (error) => {
           this.spinner.hide();

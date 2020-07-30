@@ -28,10 +28,31 @@ export class ApiService {
     return this.http.get(url);
   }
 
+  // Get a user
+  getUser(id): Observable<any> {
+    const url = `${this.baseUri}/user/${id}`;
+    return this.http.get(url);
+  }
+
+  // Update a user
+  updateUser(id, data): Observable<any> {
+    const url = `${this.baseUri}/user/update/${id}`;
+    return this.http.put(url, data);
+  }
+
   // Delete user by Id
   deleteUser(id): Observable<any> {
     const url = `${this.baseUri}/user/delete/${id}`;
     return this.http.delete(url);
+  }
+
+  // Get roles
+  getRoles(id): Observable<any> {
+    let url = `${this.baseUri}/role/list`;
+    if (id !== null) {
+      url += `?user_id=${id}`;
+    }
+    return this.http.get(url);
   }
 
   // Error handling
