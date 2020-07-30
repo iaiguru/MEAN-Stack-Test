@@ -17,6 +17,25 @@ const createUser = async ({ ...params }) => {
   }
 };
 
+const getUsers = async () => {
+  try {
+    const user = await User.find();
+    return user;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const deleteUser = async (id) => {
+  try {
+    await User.findOneAndDelete(id);
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   createUser,
+  getUsers,
+  deleteUser,
 };
