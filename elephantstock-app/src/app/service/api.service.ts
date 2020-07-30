@@ -18,19 +18,12 @@ export class ApiService {
 
   // Create user
   createUser(data): Observable<any> {
-    const url = `${this.baseUri}/create-user`;
+    const url = `${this.baseUri}/user/create`;
     return this.http.post(url, data).pipe(catchError(this.handleError));
   }
 
   // Error handling
-  handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = error.error.message;
-    } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    console.log(errorMessage);
-    return throwError(errorMessage);
+  handleError(res: HttpErrorResponse) {
+    return throwError(res.error);
   }
 }

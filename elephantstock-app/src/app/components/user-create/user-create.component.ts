@@ -2,7 +2,8 @@ import { Router } from '@angular/router';
 import { ApiService } from './../../service/api.service';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-create',
   templateUrl: './user-create.component.html',
@@ -17,7 +18,9 @@ export class UserCreateComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private ngZone: NgZone,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private spinner: NgxSpinnerService,
+    private toast: ToastrService
   ) {
     this.mainForm();
   }
@@ -53,13 +56,16 @@ export class UserCreateComponent implements OnInit {
       return false;
     } else {
       // Call user create api
+      this.spinner.show();
       this.apiService.createUser(this.userForm.value).subscribe(
         (res) => {
+          this.spinner.hide();
           console.log('Employee successfully created!');
           this.ngZone.run(() => this.router.navigateByUrl('/users-list'));
         },
         (error) => {
-          console.log(error);
+          this.spinner.hide();
+          this.toast.error(error);
         }
       );
     }
