@@ -22,6 +22,18 @@ export class ApiService {
     return this.http.post(url, data).pipe(catchError(this.handleError));
   }
 
+  // Get all users
+  getUsers(): Observable<any> {
+    const url = `${this.baseUri}/user/list`;
+    return this.http.get(url);
+  }
+
+  // Delete user by Id
+  deleteUser(id): Observable<any> {
+    const url = `${this.baseUri}/user/delete/${id}`;
+    return this.http.delete(url);
+  }
+
   // Error handling
   handleError(res: HttpErrorResponse) {
     return throwError(res.error);

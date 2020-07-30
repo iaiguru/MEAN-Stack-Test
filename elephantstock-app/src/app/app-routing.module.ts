@@ -9,7 +9,7 @@ import { from } from 'rxjs';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'users-list' },
   { path: 'create-user', component: UserCreateComponent },
-  { path: 'edit-user', component: UserEditComponent },
+  { path: 'edit-user/:id', component: UserEditComponent },
   { path: 'users-list', component: UserListComponent },
 ];
 
