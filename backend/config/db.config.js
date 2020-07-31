@@ -1,9 +1,6 @@
 module.exports = {
-  db: "mongodb://localhost:27017/meandb",
+  db: "mongodb://localhost:27017/elephantstock",
   option: {
-    user: "root",
-    pass: "mochadev",
-    auth: { authSource: "admin" },
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
