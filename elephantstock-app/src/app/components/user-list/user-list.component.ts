@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../service/api.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -7,17 +9,54 @@ import { ApiService } from '../../service/api.service';
 })
 export class UserListComponent implements OnInit {
   users: any = [];
+  filterForm: FormGroup;
+  roles: string[] = [];
+  keyword = '';
+  role = 'All';
 
-  constructor(private apiService: ApiService) {
-    this.fetchAllUsers();
+  constructor(private fb: FormBuilder, private apiService: ApiService) {}
+
+  ngOnInit(): void {
+    this.getAllRoles();
+    this.searchUsers(this.role, '');
+    this.setForm();
   }
 
-  ngOnInit(): void {}
+  onSearch(event: any) {
+    this.keyword = this.filterForm.get('keyword').value;
+    this.searchUsers(this.role, this.keyword);
+  }
 
-  fetchAllUsers() {
-    this.apiService.getUsers().subscribe((data) => {
+  setForm() {
+    this.filterForm = this.fb.group({
+      role: ['All'],
+      keyword: [''],
+    });
+  }
+
+  updateRole(e) {
+    this.role = e;
+    this.filterForm.get('role').setValue(e, { onlySelf: true });
+
+    this.searchUsers(this.role, this.keyword);
+  }
+
+  onKeywordChanged(event: any) {
+    this.keyword = event.target.value;
+  }
+
+  getAllRoles() {
+    this.apiService.getAllRoles().subscribe((data) => {
+      const roles = data.roles;
+      roles.unshift('All');
+
+      this.roles = roles;
+    });
+  }
+
+  searchUsers(role, keyword) {
+    this.apiService.searchUsers(role, keyword).subscribe((data) => {
       this.users = data.users;
-      console.log(this.users);
     });
   }
 

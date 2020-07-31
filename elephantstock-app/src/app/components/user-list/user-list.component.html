@@ -1,11 +1,47 @@
 <div class="container">
-  <!-- No data message -->
-  <p *ngIf="users.length <= 0" class="no-data text-center">
-    There is no user!
-  </p>
+  <div>
+    <form [formGroup]="filterForm">
+      <div class="form-group d-flex align-items-center justify-content-between">
+        <div class="input-group w-25">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputRole">Role</label>
+          </div>
+          <select
+            class="custom-select"
+            (change)="updateRole($event.target.value)"
+            formControlName="role"
+          >
+            <option *ngFor="let role of roles" value="{{ role }}"
+              >{{ role }}
+            </option>
+          </select>
+        </div>
+
+        <div class="input-group w-50">
+          <input
+            class="form-control ml-auto mw-40"
+            type="text"
+            placeholder="Please type your keyword"
+            formControlName="keyword"
+            (keydown.enter)="onSearch($event)"
+            (change)="onKeywordChanged($event)"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="onSearch($event)"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 
   <!-- User list -->
-  <table class="table table-bordered" *ngIf="users.length > 0">
+  <table class="table table-bordered">
     <thead class="table-success">
       <tr>
         <th scope="col">User ID</th>
@@ -17,6 +53,16 @@
       </tr>
     </thead>
     <tbody>
+      <tr *ngIf="users.length <= 0">
+        <td colspan="6" class="p-0">
+          <div
+            class="alert alert-warning mb-0 mt-1 d-flex justify-content-center"
+            role="alert"
+          >
+            <span>No User </span>
+          </div>
+        </td>
+      </tr>
       <tr *ngFor="let user of users; let i = index">
         <th scope="row">{{ user._id }}</th>
         <td>{{ user.firstName }}</td>

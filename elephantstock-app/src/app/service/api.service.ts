@@ -46,13 +46,23 @@ export class ApiService {
     return this.http.delete(url);
   }
 
+  // Search users
+  searchUsers(role, keyword): Observable<any> {
+    const url = `${this.baseUri}/user/search`;
+    return this.http.post(url, { role, keyword });
+  }
+
   // Get roles
-  getRoles(id): Observable<any> {
+  getRoles(id = null): Observable<any> {
     let url = `${this.baseUri}/role/list`;
-    if (id !== null) {
+    if (id !== null && id !== undefined) {
       url += `?user_id=${id}`;
     }
     return this.http.get(url);
+  }
+
+  getAllRoles(): Observable<any> {
+    return this.http.get(`${this.baseUri}/role/all-list`);
   }
 
   // Error handling
