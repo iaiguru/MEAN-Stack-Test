@@ -24,7 +24,7 @@
             placeholder="Please type your keyword"
             formControlName="keyword"
             (keydown.enter)="onSearch($event)"
-            (change)="onKeywordChanged($event)"
+            (keyup)="onKeywordChanged($event)"
           />
           <div class="input-group-append">
             <button

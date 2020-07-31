@@ -50,6 +50,8 @@ export class UserListComponent implements OnInit {
 
   onKeywordChanged(event: any) {
     this.keyword = event.target.value;
+    console.log('change....');
+    this.searchUsers(this.role, this.keyword);
   }
 
   getAllRoles() {

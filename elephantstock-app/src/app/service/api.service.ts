@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
 import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse,
 } from '@angular/common/http';
 
+import AppConstant from '../constants/app.constant';
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  baseUri = 'http://localhost:4000/api';
+  baseUri = AppConstant.LocalApiBaseUri;
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) {}
@@ -19,7 +19,7 @@ export class ApiService {
   // Create user
   createUser(data): Observable<any> {
     const url = `${this.baseUri}/user/create`;
-    return this.http.post(url, data).pipe(catchError(this.handleError));
+    return this.http.post(url, data);
   }
 
   // Get all users
@@ -63,10 +63,5 @@ export class ApiService {
 
   getAllRoles(): Observable<any> {
     return this.http.get(`${this.baseUri}/role/all-list`);
-  }
-
-  // Error handling
-  handleError(res: HttpErrorResponse) {
-    return throwError(res.error);
   }
 }
