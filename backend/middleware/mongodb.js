@@ -4,7 +4,7 @@
 */
 
 const mongoose = require("mongoose");
-const dbConfig = require("../config/db");
+const dbConfig = require("../config/db.config");
 mongoose.connect(dbConfig.db, dbConfig.option);
 const db = mongoose.connection;
 

@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from '../../model/user';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import ErrorMessage from '../../constants/error.constant';
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
@@ -34,16 +35,17 @@ export class UserEditComponent implements OnInit {
 
   setForm() {
     this.editForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
-      lastName: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
-        ],
-      ],
-      role: ['', [Validators.required]],
+      firstName: [''], //['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+      lastName: [''], //['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+      email: [''],
+      // email: [], [
+      //   '',
+      //   [
+      //     Validators.required,
+      //     Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
+      //   ],
+      // ],
+      role: [''], //['', [Validators.required]],
     });
   }
 
@@ -99,7 +101,11 @@ export class UserEditComponent implements OnInit {
           (error) => {
             // Show error
             this.spinner.hide();
-            this.toaster.error(error);
+            if ('valid' in error) {
+              this.toaster.error(ErrorMessage.InvalidParam);
+            } else {
+              this.toaster.error(error);
+            }
           }
         );
       }

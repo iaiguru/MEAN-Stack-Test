@@ -4,6 +4,7 @@ let express = require("express"),
   cors = require("cors"),
   bodyParser = require("body-parser");
 
+const AppConfig = require("./config/app.config");
 // Setting up port with express js
 const dbconnection = require("./middleware/mongodb");
 
@@ -20,7 +21,7 @@ app.use("/", express.static(path.join(__dirname, "dist/mean-stack-crud-app")));
 app.use("/api", require("./routes/api"));
 
 // Create port
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || AppConfig.Port;
 const server = app.listen(port, () => {
   console.log("Connected to port " + port);
 });

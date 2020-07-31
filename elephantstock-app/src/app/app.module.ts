@@ -37,6 +37,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
       positionClass: 'toast-top-full-width',
       preventDuplicates: true,
       closeButton: false,
+      enableHtml: true,
+      newestOnTop: true,
     }),
   ],
   providers: [

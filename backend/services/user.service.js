@@ -60,7 +60,6 @@ const search = async (role, keyword) => {
   let query = {};
 
   try {
-    console.log(role, keyword);
     if (role !== "All" && role !== "") {
       hasQueryRole = true;
       queryRole = { role: role };
@@ -85,7 +84,6 @@ const search = async (role, keyword) => {
       query = queryKeyword;
     }
 
-    console.log("query:", query);
     const user = await User.find(query);
     return user;
   } catch (err) {
