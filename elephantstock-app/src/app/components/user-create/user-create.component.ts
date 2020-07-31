@@ -21,12 +21,12 @@ export class UserCreateComponent implements OnInit {
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
     private toast: ToastrService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.mainForm();
     this.getRoles();
   }
-
-  ngOnInit(): void {}
 
   mainForm() {
     this.userForm = this.fb.group({

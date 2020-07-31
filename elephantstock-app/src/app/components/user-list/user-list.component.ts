@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../service/api.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-list',
@@ -14,7 +16,12 @@ export class UserListComponent implements OnInit {
   keyword = '';
   role = 'All';
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {}
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private spinner: NgxSpinnerService,
+    private toaster: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.getAllRoles();
@@ -55,16 +62,32 @@ export class UserListComponent implements OnInit {
   }
 
   searchUsers(role, keyword) {
-    this.apiService.searchUsers(role, keyword).subscribe((data) => {
-      this.users = data.users;
-    });
+    this.spinner.show();
+    this.apiService.searchUsers(role, keyword).subscribe(
+      (data) => {
+        this.spinner.hide();
+        this.users = data.users;
+      },
+      (error) => {
+        this.spinner.hide();
+        this.toaster.error(error);
+      }
+    );
   }
 
   removeUser(user, index) {
     if (window.confirm('Are you sure?')) {
-      this.apiService.deleteUser(user._id).subscribe((data) => {
-        this.users.splice(index, 1);
-      });
+      this.spinner.show();
+      this.apiService.deleteUser(user._id).subscribe(
+        (data) => {
+          this.users.splice(index, 1);
+          this.spinner.hide();
+        },
+        (error) => {
+          this.spinner.hide();
+          this.toaster.error(error);
+        }
+      );
     }
   }
 }

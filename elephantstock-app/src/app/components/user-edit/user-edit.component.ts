@@ -75,7 +75,6 @@ export class UserEditComponent implements OnInit {
         });
       },
       (error) => {
-        console.log('Error:', error);
         this.spinner.hide();
         this.toaster.error(error);
       }
@@ -90,7 +89,7 @@ export class UserEditComponent implements OnInit {
       if (window.confirm('Are you sure')) {
         const id = this.actRoute.snapshot.paramMap.get('id');
         const user = this.editForm.value;
-
+        // Call edit api
         this.spinner.show();
         this.apiService.updateUser(id, user).subscribe(
           (res) => {
@@ -98,6 +97,7 @@ export class UserEditComponent implements OnInit {
             this.router.navigateByUrl('/user-list');
           },
           (error) => {
+            // Show error
             this.spinner.hide();
             this.toaster.error(error);
           }
