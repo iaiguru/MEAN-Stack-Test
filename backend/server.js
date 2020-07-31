@@ -16,9 +16,11 @@ app.use(
   })
 );
 app.use(cors());
-app.use(express.static(path.join(__dirname, "dist/mean-stack-crud-app")));
-app.use("/", express.static(path.join(__dirname, "dist/mean-stack-crud-app")));
+app.use(express.static(path.join(__dirname, "app")));
 app.use("/api", require("./routes/api"));
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname + "/app/index.html"));
+});
 
 // Create port
 const port = process.env.PORT || AppConfig.Port;
