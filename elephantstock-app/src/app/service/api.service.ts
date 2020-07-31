@@ -11,7 +11,7 @@ import AppConstant from '../constants/app.constant';
   providedIn: 'root',
 })
 export class ApiService {
-  baseUri = AppConstant.LocalApiBaseUri;
+  baseUri = AppConstant.ApiBaseUri;
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) {}
