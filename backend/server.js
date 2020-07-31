@@ -1,12 +1,11 @@
 let express = require("express"),
   path = require("path"),
-  mongoose = require("mongoose"),
   cors = require("cors"),
   bodyParser = require("body-parser");
+require("dotenv").config();
 
-const AppConfig = require("./config/app.config");
-// Setting up port with express js
-const dbconnection = require("./middleware/mongodb");
+// DB Connect
+const dbClient = require("./middleware/mongodb");
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,7 +22,7 @@ app.get("/*", function (req, res) {
 });
 
 // Create port
-const port = process.env.PORT || AppConfig.Port;
+const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
   console.log("Connected to port " + port);
 });
