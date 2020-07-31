@@ -52,10 +52,52 @@ const updateUser = async (id, data) => {
   }
 };
 
+const search = async (role, keyword) => {
+  let hasQueryRole = false;
+  let queryRole = [];
+  let hasQueryKeyword = false;
+  let queryKeyword = [];
+  let query = {};
+
+  try {
+    console.log(role, keyword);
+    if (role !== "All" && role !== "") {
+      hasQueryRole = true;
+      queryRole = { role: role };
+    }
+
+    if (keyword !== "") {
+      hasQueryKeyword = true;
+      queryKeyword = {
+        $or: [
+          { firstName: { $regex: `${keyword}`, $options: "" } },
+          { lastName: { $regex: `${keyword}`, $options: "" } },
+          { email: { $regex: `${keyword}`, $options: "" } },
+        ],
+      };
+    }
+
+    if (hasQueryKeyword && hasQueryRole) {
+      query = { $and: [{ ...queryRole }, { ...queryKeyword }] };
+    } else if (hasQueryRole) {
+      query = queryRole;
+    } else if (hasQueryKeyword) {
+      query = queryKeyword;
+    }
+
+    console.log("query:", query);
+    const user = await User.find(query);
+    return user;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
   deleteUser,
   updateUser,
+  search,
 };
