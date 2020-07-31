@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-5">
   <div>
     <form [formGroup]="filterForm">
       <div class="form-group d-flex align-items-center justify-content-between">
@@ -41,43 +41,49 @@
   </div>
 
   <!-- User list -->
-  <table class="table table-bordered">
-    <thead class="table-success">
-      <tr>
-        <th scope="col">User ID</th>
-        <th scope="col">First Name</th>
-        <th scope="col">Last Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Role</th>
-        <th scope="col center">Update</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngIf="users.length <= 0">
-        <td colspan="6" class="p-0">
-          <div
-            class="alert alert-warning mb-0 mt-1 d-flex justify-content-center"
-            role="alert"
-          >
-            <span>No User </span>
-          </div>
-        </td>
-      </tr>
-      <tr *ngFor="let user of users; let i = index">
-        <th scope="row">{{ user._id }}</th>
-        <td>{{ user.firstName }}</td>
-        <td>{{ user.lastName }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.role }}</td>
-        <td class="text-center edit-block">
-          <span class="edit" [routerLink]="['/edit-user/', user._id]">
-            <button type="button" class="btn btn-success btn-sm">Edit</button>
-          </span>
-          <span class="delete" (click)="removeUser(user, i)">
-            <button type="button" class="btn btn-danger btn-sm">Delete</button>
-          </span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="table-success">
+        <tr>
+          <th scope="col">User ID</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Role</th>
+          <th scope="col center">Update</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="users.length <= 0">
+          <td colspan="6" class="p-0">
+            <div
+              class="alert alert-warning mb-0 mt-1 d-flex justify-content-center"
+              role="alert"
+            >
+              <span>No User </span>
+            </div>
+          </td>
+        </tr>
+        <tr *ngFor="let user of users; let i = index">
+          <th scope="row">{{ user._id }}</th>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td class="text-center edit-block">
+            <span class="edit" [routerLink]="['/edit-user/', user._id]">
+              <button type="button" class="btn btn-success btn-sm mr-2">
+                Edit
+              </button>
+            </span>
+            <span class="delete" (click)="removeUser(user, i)">
+              <button type="button" class="btn btn-danger btn-sm">
+                Delete
+              </button>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

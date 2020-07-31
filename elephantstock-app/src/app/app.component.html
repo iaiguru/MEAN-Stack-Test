@@ -1,21 +1,25 @@
 <div
   class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm"
 >
-  <h5 class="my-0 mr-md-auto font-weight-normal">Elephant Stock</h5>
+  <h5 class="my-0 mr-md-auto font-weight-normal">
+    <i class="logo-1">Elephant</i>&nbsp;<i class="logo-2">Stock</i>
+  </h5>
   <nav class="my-2 my-md-0 mr-md-3">
     <a
-      class="btn btn-outline-primary"
+      class="btn btn-outline-success"
       routerLinkActive="active"
       routerLink="/user-list"
       >View Users</a
     >
   </nav>
-  <a
-    class="btn btn-outline-primary"
-    routerLinkActive="active"
-    routerLink="/create-user"
-    >Add User</a
-  >
+  <nav>
+    <a
+      class="btn btn-outline-success"
+      routerLinkActive="active"
+      routerLink="/create-user"
+      >Add User</a
+    >
+  </nav>
 </div>
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
