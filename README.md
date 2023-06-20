@@ -1,6 +1,6 @@
-# MEAN-stack-CRUD-TEST
+# MEAN-stack-CRUD-Demo
 
-MEAN-stack web application that allows users to add/edit/delete rows from a user table.
+MEAN-stack web demo application that allows users to add/edit/delete rows from a user table.
 
 ## TO DO List
 ### Front-End
@@ -37,7 +37,7 @@ MEAN-stack web application that allows users to add/edit/delete rows from a user
 
 ### How to run deploy script
 ```
-$ git clone https://github.com/devninja9/MEAN-Stack-Test .
+$ git clone https://github.com/justfun/MEAN-Stack-Test .
 $ ./build.sh
 ```
 
